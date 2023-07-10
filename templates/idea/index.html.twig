@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Idea index
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('like') }}
+	{{ encore_entry_script_tags('btn') }}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-6 col-md-2 mt-3 text-center">
+			<div>
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				{{ form_end(form) }}
+			</div>
+		</div>
+		<div class="col-6 col-md-8 text-center">
+			<button type="button" class="btn btn-success btn-lg m-5">
+				<a href="{{ path('app_idea_new') }}">Create new idea</a>
+			</button>
+		</div>
+		<div class="col-0 col-md-2 mt-3 text-center"></div>
+	</div>
+
+	<div class="d-flex flex-row-reverse"></div>
+	<div class="container">
+		<div class="row d-flex justify-content-around">
+			{% for idea in ideas %}
+				{% if idea.status == 'in progress' %}
+					{% include "Shared/_ideaCard.html.twig" %}
+				{% endif %}
+			{% else %}
+				<tr>
+					<td colspan="5">no records found</td>
+				</tr>
+			{% endfor %}
+
+		</div>
+	</div>
+	<button onclick="topFunction()" id="btnTop" title="Go to top"><img src="{{ asset('/build/images/icons8-scroll-up-64.png') }}"></button>
+{% endblock %}
